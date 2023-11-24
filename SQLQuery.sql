@@ -13,19 +13,6 @@ FROM
 ORDER BY 
 	3, 4;
 
---Inspect Data Type, Range and Precision of Columns
-SELECT
-    COLUMN_NAME,
-    DATA_TYPE,
-    CHARACTER_MAXIMUM_LENGTH,
-    NUMERIC_PRECISION,
-    NUMERIC_SCALE
-FROM
-    INFORMATION_SCHEMA.COLUMNS
-WHERE
-    TABLE_NAME = 'CovidDeaths';
-
-
 
 -- Total Covid Deaths / Total Covid Cases per Country
 SELECT
@@ -172,7 +159,7 @@ ORDER BY
 SELECT
     SUM(new_cases) AS global_new_cases,
     SUM(new_deaths) AS global_new_deaths,
-    ((CAST(SUM(new_deaths) AS decimal(20,4))) / NULLIF(SUM(new_cases), 0)) -- Use NULLIF to handle division by zero
+    ((CAST(SUM(new_deaths) AS decimal(20,4))) / NULLIF(SUM(new_cases), 0)) AS global_death_rate-- Use NULLIF to handle division by zero
 FROM
     SQL_project.dbo.CovidDeaths
 WHERE
